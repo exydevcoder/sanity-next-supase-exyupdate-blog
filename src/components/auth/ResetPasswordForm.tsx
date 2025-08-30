@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { InputField } from '@/components/reuseable/input-field';
+import { Button } from '../ui/button';
+import { InputField } from '../reuseable/input-field';
 import { toast } from 'sonner';
-import { createClient } from '@/lib/supabase/client';
+import { createClient } from '../../lib/supabase/client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { inputClass } from './style';
 import { z } from 'zod';
