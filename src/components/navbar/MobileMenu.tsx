@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { LogIn, Menu } from 'lucide-react';
 import type { GetTopLevelCategoriesResponse } from '@/types/category';
 import { useDialog } from '@/store/dialogs-store';
+import { useAuth } from '@/hooks/useAuth';
 
 interface MobileMenuProps {
   parentCategories?: GetTopLevelCategoriesResponse;
@@ -14,6 +15,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({ parentCategories = [] }: MobileMenuProps) {
   const { onOpen } = useDialog();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Sheet>
@@ -36,21 +38,25 @@ export function MobileMenu({ parentCategories = [] }: MobileMenuProps) {
           {parentCategories.map(category => (
             <Link
               key={category._id}
-              href={`/categories/${category.slug}`}
+              href={`/category/${category.slug}`}
               className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none"
             >
               {category.title}
             </Link>
           ))}
         </nav>
-        <Separator />
-        <div className="p-2">
-          {/* toggle auth modal */}
-          <Button className="w-full gap-2" onClick={() => onOpen('auth')}>
-            <LogIn className="h-4 w-4" />
-            {'Sign in'}
-          </Button>
-        </div>
+        {!isAuthenticated && (
+          <>
+            <Separator />
+            <div className="p-2">
+              {/* toggle auth modal */}
+              <Button className="w-full gap-2" onClick={() => onOpen('auth')}>
+                <LogIn className="h-4 w-4" />
+                {'Sign in'}
+              </Button>
+            </div>
+          </>
+        )}
       </SheetContent>
     </Sheet>
   );
