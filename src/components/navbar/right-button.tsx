@@ -1,6 +1,6 @@
 'use client';
 
-import { LogIn, Search, User, LogOut } from 'lucide-react';
+import { LogIn, Search, User, BookDown } from 'lucide-react';
 import React from 'react';
 import { Button } from '../ui/button';
 import { useDialog } from '@/store/dialogs-store';
@@ -13,16 +13,7 @@ import LogoutButton from '../buttons/LogoutButton';
 
 export default function RightNavButton() {
   const { onOpen } = useDialog();
-  const { user, profile, isLoading, isAuthenticated, signOut } = useAuth();
-
-  const handleLogout = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
-
+  const { user, profile, isLoading, isAuthenticated } = useAuth();
   return (
     <div className="ml-auto flex items-center gap-2">
       <Button variant="ghost" size="icon" aria-label="Search" onClick={() => onOpen('search')}>
@@ -53,7 +44,7 @@ export default function RightNavButton() {
             </Link>
             <Link href="/saved-posts" className="">
               <DropdownMenuItem className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
+                <BookDown className="mr-2 h-4 w-4" />
                 <span>Saved Posts</span>
               </DropdownMenuItem>
             </Link>
